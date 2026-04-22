@@ -25,7 +25,6 @@ SECRET_KEY = "django-insecure-mj_v6y83-j(ed)o38_u=552p886pqe(m09emv*14zfjk#oz^xc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -122,7 +121,7 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
-
+ALLOWED_HOSTS = ["*"]
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 # Static files (CSS, JavaScript, Images)
