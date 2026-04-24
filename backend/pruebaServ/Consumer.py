@@ -4,20 +4,27 @@ import json
 class Consumer(AsyncWebsocketConsumer):
 
     async def connect(self):
+        self.group_name = "notificacion"
+
+        await self.channel_layer.group_add(
+            self.group_name,
+            self.channel_name
+        )
+
         await self.accept()
         await self.send(text_data=json.dumps({
-            "message": "Conectado correctamente"
+            "message": "Conectado al grupo"
         }))
 
     async def disconnect(self, close_code):
-        # Podés manejar limpieza acá si usás grupos
+        await self.channel_layer.group_discard(
+            self.group_name,
+            self.channel_name
+        )
         print("Desconectado:", close_code)
 
-    async def receive(self, text_data):
-        data = json.loads(text_data)
-        mensaje = data.get("message", "")
+    async def evento(self, text_data):
 
-        # Reenvía el mensaje (echo simple)
         await self.send(text_data=json.dumps({
-            "message": f"Recibido: {mensaje}"
+            "message": text_data
         }))
