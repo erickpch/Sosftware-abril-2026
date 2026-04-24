@@ -28,4 +28,6 @@ COPY . .
 EXPOSE 8000
 
 # Comando por defecto (modo desarrollo)
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+#CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+CMD ["python", "-m", "daphne", "-b", "0.0.0.0", "-p", "8000", "pruebaServ.asgi:application"]
