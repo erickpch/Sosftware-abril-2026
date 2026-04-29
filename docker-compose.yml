@@ -28,12 +28,20 @@ services:
     volumes:
       - pgadmin_data:/var/lib/pgadmin
 
+      
+  redis:
+    image: redis
+    container_name: redis_socket
+    ports:
+      - "6379:6379"
+
   backend:
     build: ./backend
     container_name: python_backend
     restart: always
     depends_on:
       - db
+      - redis
     environment:
       DATABASE_URL: postgresql://erick:erick123@prueba:5432/mydb
     ports:
@@ -41,20 +49,22 @@ services:
     volumes:
       - ./backend:/app
 
-  frontend:
-    build: ./frontend
-    container_name: react_native_app
-    restart: always
-    depends_on:
-      - backend
-    ports:
-      - "19000:19000"   # Expo
-      - "19001:19001"
-      - "19002:19002"
-    volumes:
-      - ./frontend:/app
-    stdin_open: true
-    tty: true
+
+
+  # frontend:
+  #   build: ./frontend
+  #   container_name: react_native_app
+  #   restart: always
+  #   depends_on:
+  #     - backend
+  #   ports:
+  #     - "19000:19000"   # Expo
+  #     - "19001:19001"
+  #     - "19002:19002"
+  #   volumes:
+  #     - ./frontend:/app
+  #   stdin_open: true
+  #   tty: true
 
 volumes:
   postgres_data:

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'drf_spectacular',
     "miApp",
     'corsheaders',
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,17 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+#### esto es para sockets
+
+ASGI_ACPPLICATION = "pruebaServ.asgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("redis", 6379)],
+        },
+    },
+}
